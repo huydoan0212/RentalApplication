@@ -18,6 +18,4 @@ public class ApiResponse<T> {
     LocalDateTime timeStamp;
     String violation;
     T responseData;
-
-
 }

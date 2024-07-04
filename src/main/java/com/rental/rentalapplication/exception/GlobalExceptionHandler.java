@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(value = Exception.class)
-//    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
-//        ApiResponse apiResponse = new ApiResponse();
-//        apiResponse.setMessage(Error.UNCATEGORIZED_EXCEPTION.getMessage());
-//        apiResponse.setStatus("failed");
-//        apiResponse.setTimeStamp(LocalDateTime.now());
-//        return ResponseEntity.badRequest().body(apiResponse);
-//    }
+    @ExceptionHandler(value = Exception.class)
+    ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setMessage(Error.UNCATEGORIZED_EXCEPTION.getMessage());
+        apiResponse.setStatus("failed");
+        apiResponse.setTimeStamp(LocalDateTime.now());
+        return ResponseEntity.badRequest().body(apiResponse);
+    }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception) {
@@ -58,7 +58,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AccessDeniedException.class)
     ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
         Error error = Error.UNAUTHORIZED;
-
         return ResponseEntity.status(error.getStatusCode())
                 .body(ApiResponse.builder()
                         .message(error.getMessage())
@@ -66,5 +65,4 @@ public class GlobalExceptionHandler {
                         .timeStamp(LocalDateTime.now())
                         .build());
     }
-
 }
